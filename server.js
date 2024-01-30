@@ -36,17 +36,20 @@ app.get('*', (req, res) =>
 // Routing (POST)
 app.post('/api/notes', (req, res) => {
     const newNote = req.body;
-    
     newNote.id = uuidv4();
-
     const notes = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
-
     notes.push(newNote);
-
     fs.writeFileSync(dbFilePath, JSON.stringify(notes, null, 4), 'utf8');
-
     res.json(newNote);
 });
+
+// Routing (DELETE)
+app.delete('/api/notes/:id', (req, res) => {
+    const data = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
+    const newData = data.filter(({ id }) => id !== req.params.id);
+    fs.writeFileSync(dbFilePath, JSON.stringify(newData, null, 4), 'utf8');
+    res.json(newData);
+})
 
 // Starts the server.
 app.listen(PORT, () =>
