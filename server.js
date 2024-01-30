@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const { v4: uuidv4 } = require('uuid');
 
 // App initialization.
 const PORT = 3001;
@@ -35,7 +36,11 @@ app.get('*', (req, res) =>
 // Routing (POST)
 app.post('/api/notes', (req, res) => {
     const newNote = req.body;
+    
+    newNote.id = uuidv4();
+
     const notes = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
+
     notes.push(newNote);
 
     fs.writeFileSync(dbFilePath, JSON.stringify(notes, null, 4), 'utf8');
