@@ -16,11 +16,16 @@ app.use(express.static('public'));
 
 // Routing (GET)
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/index.html'))
+    res.sendFile(path.join(__dirname, '/public/index.html'));
 });
 
 app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/notes.html'))
+    res.sendFile(path.join(__dirname, '/public/notes.html'));
+});
+
+app.get('/api/notes', (req, res) => {
+    const data = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
+    res.json(data);
 });
 
 app.get('*', (req, res) =>
