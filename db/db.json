@@ -1,6 +1,10 @@
 [
     {
-        "title":"Test Title",
-        "text":"Test text"
+        "title": "Test Title",
+        "text": "Test text"
+    },
+    {
+        "title": "Test Case",
+        "text": "I am writing this test to experiment with my new app."
     }
 ]
